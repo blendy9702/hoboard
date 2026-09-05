@@ -112,11 +112,6 @@ export default function ProductCard({ keyboard, index = 0 }: Props) {
               </div>
             </div>
 
-            {keyboard.stock <= 5 && (
-              <p className="mt-2 text-[11px] text-red-400">
-                잔여 {keyboard.stock}개
-              </p>
-            )}
           </div>
         </div>
       </Link>
