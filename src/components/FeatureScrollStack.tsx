@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import { useRef } from "react"
-import Image from "next/image"
-import { motion, useScroll, useTransform } from "framer-motion"
+import { useRef } from "react";
+import Image from "next/image";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 const FEATURES = [
   {
@@ -33,85 +33,94 @@ const FEATURES = [
     image: "/features/rgb.png",
     tag: "Lighting",
   },
-]
+];
 
 function StackCard({
   feature,
   index,
+  isLast,
 }: {
-  feature: (typeof FEATURES)[number]
-  index: number
+  feature: (typeof FEATURES)[number];
+  index: number;
+  isLast: boolean;
 }) {
-  const ref = useRef<HTMLDivElement>(null)
+  const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "start 20%"],
-  })
-  const scale = useTransform(scrollYProgress, [0, 1], [0.92, 1])
-  const opacity = useTransform(scrollYProgress, [0, 0.4, 1], [0.55, 0.85, 1])
+  });
+  const scale = useTransform(scrollYProgress, [0, 1], [0.92, 1]);
+  const opacity = useTransform(scrollYProgress, [0, 0.4, 1], [0.55, 0.85, 1]);
 
   return (
     <div
       ref={ref}
-      className="sticky mb-[55vh] last:mb-0"
+      className={`sticky ${isLast ? "mb-0" : "mb-[36vh] md:mb-[55vh]"}`}
       style={{ top: 96 + index * 22, zIndex: index + 1 }}
     >
       <motion.article
         style={{ scale, opacity }}
-        className="overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-[0_20px_60px_-24px_rgba(17,17,17,0.18)]"
+        className='overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-[0_20px_60px_-24px_rgba(17,17,17,0.18)]'
       >
-        <div className="grid grid-cols-1 md:grid-cols-2">
-          <div className="relative aspect-[16/10] md:aspect-auto md:min-h-[380px] bg-[#F4F4F5]">
+        <div className='grid grid-cols-1 md:grid-cols-2'>
+          <div className='relative aspect-[16/10] md:aspect-auto md:min-h-[380px] bg-[#F4F4F5]'>
             <Image
               src={feature.image}
               alt={feature.title}
               fill
-              className="object-cover"
-              sizes="(min-width: 768px) 50vw, 100vw"
+              className='object-cover'
+              sizes='(min-width: 768px) 50vw, 100vw'
             />
           </div>
 
-          <div className="flex flex-col justify-center px-8 py-10 sm:px-12">
-            <div className="flex items-center justify-between gap-3 mb-6">
-              <span className="text-[12px] font-semibold tracking-[0.18em] text-[#5B4FFF] uppercase">
+          <div className='flex flex-col justify-center px-8 py-10 sm:px-12'>
+            <div className='flex items-center justify-between gap-3 mb-6'>
+              <span className='text-[12px] font-semibold tracking-[0.18em] text-[#5B4FFF] uppercase'>
                 {feature.tag}
               </span>
-              <span className="text-[13px] font-medium text-gray-300">
+              <span className='text-[13px] font-medium text-gray-300'>
                 {feature.index} / 04
               </span>
             </div>
-            <h3 className="text-[32px] sm:text-[40px] font-bold text-gray-900 tracking-tight leading-tight">
+            <h3 className='text-[32px] sm:text-[40px] font-bold text-gray-900 tracking-tight leading-tight'>
               {feature.title}
             </h3>
-            <p className="mt-4 text-[15px] text-gray-500 leading-relaxed">
+            <p className='mt-4 text-[15px] text-gray-500 leading-relaxed'>
               {feature.desc}
             </p>
           </div>
         </div>
       </motion.article>
     </div>
-  )
+  );
 }
 
 export default function FeatureScrollStack() {
   return (
-    <section id="features" className="relative px-6 pt-28">
-      <div className="max-w-5xl mx-auto">
-        <div className="text-center mb-16">
-          <span className="inline-block text-[12px] font-semibold tracking-widest text-[#5B4FFF] uppercase mb-4">
+    <section id='features' className='relative px-6 pt-28'>
+      <div className='max-w-5xl mx-auto'>
+        <div className='text-center mb-16'>
+          <span className='inline-block text-[12px] font-semibold tracking-widest text-[#5B4FFF] uppercase mb-4'>
             Features
           </span>
-          <h2 className="text-[36px] sm:text-[48px] font-bold text-gray-900 tracking-tight leading-tight">
-            타협 없는<br />프리미엄 사양
+          <h2 className='text-[36px] sm:text-[48px] font-bold text-gray-900 tracking-tight leading-tight'>
+            타협 없는
+            <br />
+            프리미엄 사양
           </h2>
         </div>
 
         {FEATURES.map((feature, index) => (
-          <StackCard key={feature.title} feature={feature} index={index} />
+          <StackCard
+            key={feature.title}
+            feature={feature}
+            index={index}
+            isLast={index === FEATURES.length - 1}
+          />
         ))}
 
-        <div className="h-[70vh]" aria-hidden />
+        <div className="h-6 md:h-[32vh]" aria-hidden />
       </div>
     </section>
-  )
+  );
 }

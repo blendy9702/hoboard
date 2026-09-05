@@ -1,22 +1,22 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { motion, AnimatePresence } from "framer-motion"
-import Logo from "./Logo"
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
+import Logo from "./Logo";
 
 export default function Header() {
-  const pathname = usePathname()
-  const [scrolled, setScrolled] = useState(false)
-  const [menuOpen, setMenuOpen] = useState(false)
-  const onHero = pathname === "/" && !scrolled && !menuOpen
+  const pathname = usePathname();
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const onHero = pathname === "/" && !scrolled && !menuOpen;
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20)
-    window.addEventListener("scroll", onScroll)
-    return () => window.removeEventListener("scroll", onScroll)
-  }, [])
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
     <>
@@ -30,11 +30,11 @@ export default function Header() {
             : "bg-transparent"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+        <div className='max-w-7xl mx-auto px-6 h-16 flex items-center justify-between'>
           <Logo inverted={onHero} />
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className='hidden md:flex items-center gap-8'>
             {[
               { href: "/products", label: "Products" },
               { href: "/#features", label: "Features" },
@@ -55,10 +55,10 @@ export default function Header() {
           </nav>
 
           {/* CTA + Menu */}
-          <div className="flex items-center gap-3">
+          <div className='flex items-center gap-3'>
             <Link
-              href="/products"
-              className="hidden md:inline-flex items-center gap-1.5 px-4 py-2 bg-[#111111] text-white text-[13px] font-medium rounded-full hover:bg-[#333] transition-colors"
+              href='/products'
+              className='hidden md:inline-flex items-center gap-1.5 px-4 py-2 bg-[#111111] text-white text-[13px] font-medium rounded-full hover:bg-[#333] transition-colors'
             >
               Shop Now
             </Link>
@@ -66,8 +66,8 @@ export default function Header() {
             {/* Mobile menu button */}
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="md:hidden w-9 h-9 flex flex-col items-center justify-center gap-1.5"
-              aria-label="메뉴 열기"
+              className='md:hidden w-9 h-9 flex flex-col items-center justify-center gap-1.5'
+              aria-label='메뉴 열기'
             >
               <motion.span
                 animate={menuOpen ? { rotate: 45, y: 5 } : { rotate: 0, y: 0 }}
@@ -80,7 +80,9 @@ export default function Header() {
                 className={`block w-5 h-[1.5px] ${onHero ? "bg-white" : "bg-gray-900"}`}
               />
               <motion.span
-                animate={menuOpen ? { rotate: -45, y: -5 } : { rotate: 0, y: 0 }}
+                animate={
+                  menuOpen ? { rotate: -45, y: -5 } : { rotate: 0, y: 0 }
+                }
                 className={`block w-5 h-[1.5px] origin-center transition-all ${
                   onHero ? "bg-white" : "bg-gray-900"
                 }`}
@@ -98,9 +100,9 @@ export default function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-40 bg-white pt-16 px-6"
+            className='fixed inset-0 z-40 bg-white pt-16 px-6'
           >
-            <nav className="flex flex-col gap-6 mt-8">
+            <nav className='flex flex-col gap-6 mt-8'>
               {[
                 { href: "/products", label: "Products" },
                 { href: "/#features", label: "Features" },
@@ -115,7 +117,7 @@ export default function Header() {
                   <Link
                     href={item.href}
                     onClick={() => setMenuOpen(false)}
-                    className="text-3xl font-bold text-gray-900 hover:text-[#5B4FFF] transition-colors"
+                    className='text-3xl font-bold text-gray-900 hover:text-[#5B4FFF] transition-colors'
                   >
                     {item.label}
                   </Link>
@@ -125,12 +127,12 @@ export default function Header() {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.24 }}
-                className="mt-4"
+                className='mt-4'
               >
                 <Link
-                  href="/products"
+                  href='/products'
                   onClick={() => setMenuOpen(false)}
-                  className="inline-flex items-center px-6 py-3 bg-[#111111] text-white text-base font-medium rounded-full"
+                  className='inline-flex items-center px-6 py-3 bg-[#111111] text-white text-base font-medium rounded-full'
                 >
                   Shop Now
                 </Link>
@@ -140,5 +142,5 @@ export default function Header() {
         )}
       </AnimatePresence>
     </>
-  )
+  );
 }
